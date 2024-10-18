@@ -5,10 +5,9 @@ import { TransactionPaneComponent } from "./types";
 export const TransactionPane: TransactionPaneComponent = ({
   transaction,
   loading,
-  setTransactionApproval: consumerSetTransactionApproval,
+  setTransactionApproval,
+  approved,
 }) => {
-  const [approved, setApproved] = useState(transaction.approved);
-
   return (
     <div className="RampPane">
       <div className="RampPane--content">
@@ -24,11 +23,10 @@ export const TransactionPane: TransactionPaneComponent = ({
         checked={approved}
         disabled={loading}
         onChange={async (newValue) => {
-          await consumerSetTransactionApproval({
+          await setTransactionApproval({
             transactionId: transaction.id,
             newValue,
           });
-          setApproved(newValue);
         }}
       />
     </div>
